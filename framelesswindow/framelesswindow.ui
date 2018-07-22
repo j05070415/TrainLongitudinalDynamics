@@ -125,7 +125,7 @@ border-radius: 0px;</string>
   color:rgb(153,153,153);</string>
            </property>
            <property name="text">
-            <string>Frameless Window (Dark Style)</string>
+            <string>图形界面软件</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

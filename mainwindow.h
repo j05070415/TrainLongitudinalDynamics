@@ -53,20 +53,16 @@
 
 #include <QMainWindow>
 
-class MdiChild;
-QT_BEGIN_NAMESPACE
-class QAction;
-class QMenu;
-class QMdiArea;
-class QMdiSubWindow;
-QT_END_NAMESPACE
+namespace Ui {
+  class MainWindow;
+}
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow();
+    MainWindow(QWidget *parent = nullptr);
 
 protected:
     void closeEvent(QCloseEvent *event) override;
@@ -87,20 +83,9 @@ private:
     bool loadFile(const QString &fileName);
     static bool hasRecentFiles();
     void prependToRecentFiles(const QString &fileName);
-    void setRecentFilesVisible(bool visible);
 
-    QMenu *windowMenu;
-    QAction *newAct;
-    QAction *saveAct;
-    QAction *saveAsAct;
-    QAction *recentFileActs[MaxRecentFiles];
-    QAction *recentFileSeparator;
-    QAction *recentFileSubMenuAct;
-    QAction *closeAct;
-    QAction *tileAct;
-    QAction *cascadeAct;
-    QAction *nextAct;
-    QAction *previousAct;
+    QAction *_recentFileActs[MaxRecentFiles];
+    Ui::MainWindow *ui;
 };
 
 #endif

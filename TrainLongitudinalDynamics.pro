@@ -22,6 +22,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += "D:/GitHub/nodeeditor-master/include/nodes"
+DEFINES += NODE_EDITOR_SHARED
+
+CONFIG(debug, debug|release) {
+    LIBS += -l"D:/GitHub/nodeeditor-master/build/lib/Debug/nodes"
+} else {
+    LIBS += -l"D:/GitHub/nodeeditor-master/build/lib/Release/nodes"
+}
 
 SOURCES += \
         main.cpp \

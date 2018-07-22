@@ -51,14 +51,31 @@
 #include <QtWidgets>
 
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
 
-MainWindow::MainWindow()
+#include "FlowView"
+#include "FlowScene"
+
+MainWindow::MainWindow(QWidget *parent)
+ : QMainWindow(parent), ui(new Ui::MainWindow)
 {
-    createStatusBar();
+    ui->setupUi(this);
+
+    auto modelScene = new QtNodes::FlowScene();
+    auto modelView = new QtNodes::FlowView(modelScene);
+    auto calcScene = new QtNodes::FlowScene();
+    auto calcView = new QtNodes::FlowView(calcScene);
+    ui->splitter->setSizes(QList<int>() << 400 << 200 << 100);
+
+    QVBoxLayout *modelLay = new QVBoxLayout;
+    modelLay->addWidget(modelView);
+    ui->modelGroup->setLayout(modelLay);
+
+    QVBoxLayout *calcLay = new QVBoxLayout;
+    calcLay->addWidget(calcView);
+    ui->calcGroup->setLayout(calcLay);
 
     readSettings();
-
-    setWindowTitle(tr("MDI"));
     setUnifiedTitleAndToolBarOnMac(true);
 }
 
@@ -124,14 +141,6 @@ void MainWindow::prependToRecentFiles(const QString &fileName)
     recentFiles.prepend(fileName);
     if (oldRecentFiles != recentFiles)
         writeRecentFiles(recentFiles, settings);
-
-    setRecentFilesVisible(!recentFiles.isEmpty());
-}
-
-void MainWindow::setRecentFilesVisible(bool visible)
-{
-    recentFileSubMenuAct->setVisible(visible);
-    recentFileSeparator->setVisible(visible);
 }
 
 void MainWindow::updateRecentFileActions()
@@ -143,12 +152,12 @@ void MainWindow::updateRecentFileActions()
     int i = 0;
     for ( ; i < count; ++i) {
         const QString fileName = QFileInfo(recentFiles.at(i)).fileName();
-        recentFileActs[i]->setText(tr("&%1 %2").arg(i + 1).arg(fileName));
-        recentFileActs[i]->setData(recentFiles.at(i));
-        recentFileActs[i]->setVisible(true);
+        _recentFileActs[i]->setText(tr("&%1 %2").arg(i + 1).arg(fileName));
+        _recentFileActs[i]->setData(recentFiles.at(i));
+        _recentFileActs[i]->setVisible(true);
     }
     for ( ; i < MaxRecentFiles; ++i)
-        recentFileActs[i]->setVisible(false);
+        _recentFileActs[i]->setVisible(false);
 }
 
 void MainWindow::save()
