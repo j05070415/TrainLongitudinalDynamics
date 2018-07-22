@@ -55,19 +55,21 @@
 #include <QFile>
 
 #include "mainwindow.h"
+#include "framelesswindow/framelesswindow.h"
+#include "DarkStyle.h"
 
 QByteArray readTextFile(const QString &file_path) {
-  QFile input_file(file_path);
-  QByteArray input_data;
+    QFile input_file(file_path);
+    QByteArray input_data;
 
-  if (input_file.open(QIODevice::Text | QIODevice::Unbuffered | QIODevice::ReadOnly)) {
-    input_data = input_file.readAll();
-    input_file.close();
-    return input_data;
-  }
-  else {
-    return QByteArray();
-  }
+    if (input_file.open(QIODevice::Text | QIODevice::Unbuffered | QIODevice::ReadOnly)) {
+        input_data = input_file.readAll();
+        input_file.close();
+        return input_data;
+    }
+    else {
+        return QByteArray();
+    }
 }
 
 int main(int argc, char *argv[])
@@ -83,14 +85,13 @@ int main(int argc, char *argv[])
     parser.addPositionalArgument("file", "The file to open.");
     parser.process(app);
 
-    QString style_sheet = readTextFile(":/qdarkstyle/style.qss");
-//    QString style_sheet = readTextFile(":/qdarkstyle/material-blue.qss");
-//    QString style_sheet = readTextFile(":/qdarkstyle/darkstyle.qss");
-    app.setStyleSheet(style_sheet);
+    app.setStyle(new DarkStyle);
 
+    FramelessWindow window;
     MainWindow mainWin;
-    foreach (const QString &fileName, parser.positionalArguments())
-        mainWin.openFile(fileName);
-    mainWin.show();
+    window.setWindowIcon(app.style()->standardIcon(QStyle::SP_ComputerIcon));
+    window.setContent(&mainWin);
+    window.show();
+
     return app.exec();
 }

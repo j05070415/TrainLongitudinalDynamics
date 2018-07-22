@@ -26,14 +26,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    mdichild.cpp
+    framelesswindow/framelesswindow.cpp \
+    framelesswindow/windowdragger.cpp \
+    DarkStyle.cpp
 
 HEADERS += \
         mainwindow.h \
-    mdichild.h
+    framelesswindow/framelesswindow.h \
+    framelesswindow/windowdragger.h \
+    DarkStyle.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    framelesswindow/framelesswindow.ui
 
 RESOURCES += widget.qrc \
              framelesswindow.qrc \
