@@ -151,6 +151,56 @@
          <string notr="true">名称</string>
         </property>
        </column>
+       <item>
+        <property name="text">
+         <string>列车参数</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>基本参数</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>车辆参数</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>钩缓系统</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>牵引系统</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>制动系统</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>车间减震器</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>风挡系统</string>
+         </property>
+        </item>
+       </item>
+       <item>
+        <property name="text">
+         <string>线路参数</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>函数输入</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>

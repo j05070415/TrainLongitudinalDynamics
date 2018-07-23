@@ -53,18 +53,30 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "FlowView"
-#include "FlowScene"
+#include "nodes/FlowView"
+#include "nodes/FlowScene"
+#include "nodes/DataModelRegistry"
+#include "models/ImageLoaderModel.hpp"
+#include "models/ImageShowModel.hpp"
+
+using QtNodes::DataModelRegistry;
+using QtNodes::FlowScene;
+using QtNodes::FlowView;
+
+#include <memory>
 
 MainWindow::MainWindow(QWidget *parent)
  : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    auto modelScene = new QtNodes::FlowScene();
-    auto modelView = new QtNodes::FlowView(modelScene);
-    auto calcScene = new QtNodes::FlowScene();
-    auto calcView = new QtNodes::FlowView(calcScene);
+    auto ret = std::make_shared<DataModelRegistry>();
+    ret->registerModel<ImageLoaderModel>();
+    ret->registerModel<ImageShowModel>();
+    auto modelScene = new FlowScene(ret);
+    auto modelView = new FlowView(modelScene);
+    auto calcScene = new FlowScene();
+    auto calcView = new FlowView(calcScene);
     ui->splitter->setSizes(QList<int>() << 400 << 200 << 100);
 
     QVBoxLayout *modelLay = new QVBoxLayout;
